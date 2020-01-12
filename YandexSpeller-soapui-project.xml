@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="74a0e92d-1e27-4a6a-bfc6-069ed111fa3d" activeEnvironment="Default" name="YandexSpeller" resourceRoot="" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="68d654f4-798b-4fb8-958f-c8a0411063e7" wsaVersion="NONE" name="SpellServiceSoap" type="wsdl" bindingName="{http://speller.yandex.net/services/spellservice}SpellServiceSoap" soapVersion="1_1" anonymous="optional" definition="https://speller.yandex.net/services/spellservice?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://speller.yandex.net/services/spellservice?WSDL"><con:part><con:url>https://speller.yandex.net/services/spellservice?WSDL</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://speller.yandex.net/services/spellservice" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://speller.yandex.net/services/spellservice" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://speller.yandex.net/services/spellservice">
+      <s:element name="CheckTextRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="text" type="s:string"/>
+          </s:sequence>
+          <s:attribute name="lang" type="s:string"/>
+          <s:attribute name="options" type="s:int" use="optional" default="0"/>
+          <s:attribute name="format" type="s:string" use="optional" default=""/>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckTextResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SpellResult" type="tns:SpellResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SpellResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="error" type="tns:SpellError"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SpellError">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="word" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="s" type="s:string"/>
+        </s:sequence>
+        <s:attribute name="code" type="s:int" use="required"/>
+        <s:attribute name="pos" type="s:int" use="required"/>
+        <s:attribute name="row" type="s:int" use="required"/>
+        <s:attribute name="col" type="s:int" use="required"/>
+        <s:attribute name="len" type="s:int" use="required"/>
+      </s:complexType>
+      <s:element name="CheckTextsRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="unbounded" name="text" type="s:string"/>
+          </s:sequence>
+          <s:attribute name="lang" type="s:string"/>
+          <s:attribute name="options" type="s:int" use="optional" default="0"/>
+          <s:attribute name="format" type="s:string" use="optional" default=""/>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckTextsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ArrayOfSpellResult" type="tns:ArrayOfSpellResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSpellResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SpellResult" type="tns:SpellResult"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="checkTextSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckTextRequest"/>
+  </wsdl:message>
+  <wsdl:message name="checkTextSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckTextResponse"/>
+  </wsdl:message>
+  <wsdl:message name="checkTextsSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckTextsRequest"/>
+  </wsdl:message>
+  <wsdl:message name="checkTextsSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckTextsResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="SpellServiceSoap">
+    <wsdl:operation name="checkText">
+      <wsdl:input message="tns:checkTextSoapIn"/>
+      <wsdl:output message="tns:checkTextSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="checkTexts">
+      <wsdl:input message="tns:checkTextsSoapIn"/>
+      <wsdl:output message="tns:checkTextsSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SpellServiceSoap" type="tns:SpellServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="checkText">
+      <soap:operation soapAction="http://speller.yandex.net/services/spellservice/checkText" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkTexts">
+      <soap:operation soapAction="http://speller.yandex.net/services/spellservice/checkTexts" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SpellServiceSoap12" type="tns:SpellServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="checkText">
+      <soap12:operation soapAction="http://speller.yandex.net/services/spellservice/checkText" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkTexts">
+      <soap12:operation soapAction="http://speller.yandex.net/services/spellservice/checkTexts" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SpellService">
+    <wsdl:port name="SpellServiceSoap" binding="tns:SpellServiceSoap">
+      <soap:address location="http://speller.yandex.net/services/spellservice"/>
+    </wsdl:port>
+    <wsdl:port name="SpellServiceSoap12" binding="tns:SpellServiceSoap12">
+      <soap12:address location="http://speller.yandex.net/services/spellservice"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint></con:endpoints><con:operation id="3c5cd676-a132-4731-a773-b89a6d1e3fea" isOneWay="false" action="http://speller.yandex.net/services/spellservice/checkText" name="checkText" bindingOperationName="checkText" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e52f0fc4-f9da-457f-88d3-878477a145a7" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextRequest lang="?" options="0" format="">
+         <spel:text>?</spel:text>
+      </spel:CheckTextRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://speller.yandex.net/services/spellservice/checkText"/></con:call></con:operation><con:operation id="f87c83d3-fc27-48ac-9278-48b8f0b64cb0" isOneWay="false" action="http://speller.yandex.net/services/spellservice/checkTexts" name="checkTexts" bindingOperationName="checkTexts" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d82788f7-7606-45d4-8a39-9c491f784d4c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextsRequest lang="?" options="0" format="">
+         <!--Zero or more repetitions:-->
+         <spel:text>?</spel:text>
+      </spel:CheckTextsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://speller.yandex.net/services/spellservice/checkTexts"/></con:call></con:operation></con:interface><con:testSuite id="526c0ab9-1bff-4c84-8638-139ab94eed47" name="checkTextSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="dd7955fa-b954-44f3-b84f-88e5362e9a0d" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="goodSpellingTest" searchProperties="true"><con:settings/><con:testStep type="properties" name="TestProperties" id="c4f33039-9cc0-4da8-ab38-dd1e4510329c"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property><con:property><con:name>actual_word</con:name><con:value>уплыла лестница</con:value></con:property><con:property><con:name>expected_word</con:name><con:value/></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="fillEngTestProperties" id="15aa9633-d81f-4b9b-b9c7-274e10bab89e"><con:settings/><con:config><script>lang = testRunner.testCase.testSuite.project.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "strong man", "opened windows", "noisy people" ]
+expected_words = [ "", "", "" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkWordSpelling")
+}
+</script></con:config></con:testStep><con:testStep type="groovy" name="fillRusTestProperties" id="26e57e1b-0712-48a7-955a-b5336a82aac8"><con:settings/><con:config><script>lang = testRunner.testCase.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "сладкий был пирожок", "лежит клюква", "уплыла лестница" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.runTestStepByName("checkWordSpelling")
+}
+</script></con:config></con:testStep><con:testStep type="request" name="checkWordSpelling" id="f9eccf72-2da2-402d-818c-efa20e95172f" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="checkWordSpelling" id="b1dc0c57-cda4-425d-a554-2ecc9c15b986"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextRequest format="${#Project#format}" lang="${TestProperties#lang}">
+         <spel:text>${TestProperties#actual_word}</spel:text>
+      </spel:CheckTextRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="6d395afc-67a3-4f81-b04f-79c584377406"/><con:assertion type="Valid HTTP Status Codes" id="974f6a8e-41cd-465d-8607-397d6164550a" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" id="593f8389-2501-4f17-957a-e80183d6a7bf" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://speller.yandex.net/services/spellservice';
+
+//ns1:SpellResult</path><content>&lt;SpellResult xmlns="http://speller.yandex.net/services/spellservice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"/></content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property></con:properties></con:testCase><con:testCase id="1dfca47f-2501-4225-9a4e-d464fe18f0cc" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="badSpellingTest" searchProperties="true"><con:settings/><con:testStep type="properties" name="TestProperties" id="b903f6da-c294-4f3d-9843-8cbf3184a057"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property><con:property><con:name>actual_word</con:name><con:value>уплыла лестнеца</con:value></con:property><con:property><con:name>expected_word</con:name><con:value>лестница</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="fillEngTestProperties" id="ff302f05-37f3-47c1-af31-a0d55762a96b"><con:settings/><con:config><script>lang = testRunner.testCase.testSuite.project.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "strang man", "opened windaws", "noisy peuple" ]
+expected_words = [ "strong", "windows", "people" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkWordSpelling")
+}
+</script></con:config></con:testStep><con:testStep type="groovy" name="fillRusTestProperties" id="d68d181c-9545-4cdb-bc7c-664401f99ee2"><con:settings/><con:config><script>lang = testRunner.testCase.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "сладкий был пиражок", "лежит клыква", "уплыла лестнеца" ]
+expected_words = [ "пирожок", "клюква", "лестница" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkWordSpelling")
+}
+</script></con:config></con:testStep><con:testStep type="request" name="checkWordSpelling" id="df891893-8df2-4b3a-a598-4805366fb36b" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="checkWordSpelling" id="406e98f3-4671-4036-aa1c-d727a33031c6"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextRequest format="${#Project#format}" lang="${TestProperties#lang}">
+         <spel:text>${TestProperties#actual_word}</spel:text>
+      </spel:CheckTextRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="8f4c7975-f84c-4e59-b577-3db19735c2be"/><con:assertion type="Valid HTTP Status Codes" id="2645764b-d066-4b28-ba23-49c602c40925" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" id="b515f523-408c-4a09-b636-9a4246eb89c0" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://speller.yandex.net/services/spellservice';
+
+//ns1:error/ns1:s</path><content>${TestProperties#expected_word}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property></con:properties></con:testCase><con:testCase id="b56ce36e-2ae9-4882-ba66-be3e2953d7e7" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="missingLetterTest" searchProperties="true"><con:settings/><con:testStep type="properties" name="TestProperties" id="da4164da-5941-4f0f-8465-dfe1a13cba3a"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property><con:property><con:name>actual_word</con:name><con:value>уплыла лестнца</con:value></con:property><con:property><con:name>expected_word</con:name><con:value>лестница</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="fillEngTestProperties" id="f7e4fb6d-b7dc-4872-a827-301d9c8be7c1"><con:settings/><con:config><script>lang = testRunner.testCase.testSuite.project.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [  "strng man",  "opened winows",  "noisy peole" ]
+expected_words = [ "strong", "windows", "people" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkMissingLetters")
+}
+</script></con:config></con:testStep><con:testStep type="groovy" name="fillRusTestProperties" id="803c75dc-b78d-4101-bba4-3b0395a1bc0b"><con:settings/><con:config><script>lang = testRunner.testCase.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [  "сладкий был пиржок",  "лежит клква",  "уплыла лестнца" ]
+expected_words = [ "пирожок", "клюква", "лестница" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkMissingLetters")
+}
+</script></con:config></con:testStep><con:testStep type="request" name="checkMissingLetters" id="5454c332-98c0-4667-9e4d-9721267fcd86" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="checkMissingLetters" id="bec7268f-4d10-4eb3-85bb-078c7bef1784"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextRequest format="${#Project#format}" lang="${TestProperties#lang}">
+         <spel:text>${TestProperties#actual_word}</spel:text>
+      </spel:CheckTextRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a93ccb8b-df09-4033-9467-6da882f4cb10"/><con:assertion type="Valid HTTP Status Codes" id="48e7b258-7e09-47b9-ab7e-a4df4206c996" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" id="0d13281e-de6f-421c-aa6b-e76f4b2ce1b1" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://speller.yandex.net/services/spellservice';
+
+//ns1:error/ns1:s</path><content>${TestProperties#expected_word}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property></con:properties></con:testCase><con:testCase id="be5ff23f-d611-4f42-8838-2cc90d2a977c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="incorrectCapitalizationTest" searchProperties="true"><con:settings/><con:testStep type="properties" name="TestProperties" id="8eb481b3-188b-45b5-8e28-568c06b33872"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property><con:property><con:name>actual_word</con:name><con:value>уплыла лЕстНИЦа</con:value></con:property><con:property><con:name>expected_word</con:name><con:value>лестница</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="fillEngTestProperties" id="19e92549-69b1-4844-84b3-203c0f48cb21"><con:settings/><con:config><script>lang = testRunner.testCase.testSuite.project.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "sTRing man", "opened WinDoWs", "noisy PeoPle" ]
+expected_words = [ "string", "Windows", "People" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkCapitalization")
+}
+</script></con:config></con:testStep><con:testStep type="groovy" name="fillRusTestProperties" id="567338cc-64ee-47ab-ba4f-632d7d882a05"><con:settings/><con:config><script>lang = testRunner.testCase.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "сладкий был ПиРоЖок", "лежит клЮквА", "уплыла лЕстНИЦа" ]
+expected_words = [ "Пирожок", "клюква", "лестница" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkCapitalization")
+}
+</script></con:config></con:testStep><con:testStep type="request" name="checkCapitalization" id="897fc502-2930-499c-b15f-9f12edfe549e" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="checkCapitalization" id="c548e297-2ffb-4284-851b-2af945c80a20"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextRequest format="${#Project#format}" lang="${TestProperties#lang}">
+         <spel:text>${TestProperties#actual_word}</spel:text>
+      </spel:CheckTextRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="204afdcd-aef6-4ae0-aa9f-6fff7537078d"/><con:assertion type="Valid HTTP Status Codes" id="21dabb03-5015-4fac-b4ba-06e7b879bdf8" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" id="15618200-1d99-46fc-ad24-3c439bfe4b88" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://speller.yandex.net/services/spellservice';
+
+//ns1:error/ns1:s</path><content>${TestProperties#expected_word}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property></con:properties></con:testCase><con:testCase id="fe9e293e-96d7-42f9-8fab-f321d4e1133c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="extraLettersTest" searchProperties="true"><con:settings/><con:testStep type="properties" name="TestProperties" id="2edb0eb7-8979-479d-9e83-90773b300785"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property><con:property><con:name>actual_word</con:name><con:value>уплыла лесатнпица</con:value></con:property><con:property><con:name>expected_word</con:name><con:value>лестница</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="fillEngTestProperties" id="e220162f-ea21-4884-a2f7-0bc491ed7ed8"><con:settings/><con:config><script>lang = testRunner.testCase.testSuite.project.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "strainng man", "opened widndfows", "noisy pedoplae" ]
+expected_words = [   "string",   "windows",   "people" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkExtraLettes")
+}
+</script></con:config></con:testStep><con:testStep type="groovy" name="fillRusTestProperties" id="a85e17ef-fc9d-4d19-b128-2c017758a59e"><con:settings/><con:config><script>lang = testRunner.testCase.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "сладкий был пивроажок", "лежит квлюкава", "уплыла лесатнпица" ]
+expected_words = [   "пирожок",   "клюква",   "лестница" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkExtraLettes")
+}
+</script></con:config></con:testStep><con:testStep type="request" name="checkExtraLettes" id="ea151720-9d8e-4abd-88ca-74bc51229276" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="checkExtraLettes" id="4234d2c4-6f1c-46bc-96fb-a31d81f416ce"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextRequest format="${#Project#format}" lang="${TestProperties#lang}">
+         <spel:text>${TestProperties#actual_word}</spel:text>
+      </spel:CheckTextRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f71eecfd-2a17-4dd4-9a02-a941e588e975"/><con:assertion type="Valid HTTP Status Codes" id="11d0f13a-8cde-48e3-81a0-81d93c5e00d2" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" id="68d94d98-1620-4a91-be9d-7217f863ace5" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://speller.yandex.net/services/spellservice';
+
+//ns1:error/ns1:s</path><content>${TestProperties#expected_word}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property></con:properties></con:testCase><con:testCase id="7f675189-30d9-463e-9fd0-0685ca2ad82b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ignoreDigitsTest" searchProperties="true"><con:settings/><con:testStep type="properties" name="TestProperties" id="006d10ae-c845-48c6-8b91-e17d54b8017c"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>lang</con:name><con:value xsi:nil="true"/></con:property><con:property><con:name>actual_word</con:name><con:value>рак3евта</con:value></con:property><con:property><con:name>expected_word</con:name><con:value>ракета</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="fillEngTestProperties" id="fbb72b26-bccc-4b31-9b33-0311b7410410"><con:settings/><con:config><script>lang = testRunner.testCase.testSuite.project.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "stemin1a", "f4eil", "ca4lors" ]
+expected_words = [  "stamina",  "fail",  "colors" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkDigitsTest")
+}
+</script></con:config></con:testStep><con:testStep type="groovy" name="fillRusTestProperties" id="a4e0190b-0c7b-4346-b2ec-bab4f9ae990d"><con:settings/><con:config><script>lang = testRunner.testCase.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "капир4айт", "тек3ва", "рак3евта" ]
+expected_words = [  "копирайт",  "тыква",   "ракета" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkDigitsTest")
+}
+</script></con:config></con:testStep><con:testStep type="request" name="checkDigitsTest" id="ac19c657-18e6-49df-ac1e-8853718f60bb" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="checkDigitsTest" id="fc798f89-aff7-416c-8403-70b7e4c6d480"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextRequest options="${#TestCase#options}" format="${#Project#format}" lang="${TestProperties#lang}">
+         <spel:text>${TestProperties#actual_word}</spel:text>
+      </spel:CheckTextRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="fd4b07cb-9fc2-4340-86d8-76455f8aeb7a"/><con:assertion type="Valid HTTP Status Codes" id="8ba0a82f-9cd2-4ae4-a805-87a575c64a64" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" id="2e9b8bcc-4065-4d16-9b50-42152bfbc20d" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://speller.yandex.net/services/spellservice';
+
+//ns1:SpellResult</path><content>&lt;SpellResult xmlns="http://speller.yandex.net/services/spellservice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"/></content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>options</con:name><con:value>2</con:value></con:property></con:properties></con:testCase><con:testCase id="4e759c9f-06f5-4677-88bb-a840214d78b3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ignoreUrlTest" searchProperties="true"><con:settings/><con:testStep type="properties" name="TestProperties" id="c687ca98-b49f-4fab-a604-20e457ade6ed"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>lang</con:name><con:value>en</con:value></con:property><con:property><con:name>actual_word</con:name><con:value>calors.net</con:value></con:property><con:property><con:name>expected_word</con:name><con:value>colors</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="fillEngTestProperties" id="e2731443-d914-4da3-aa65-8721c1bbd2b9"><con:settings/><con:config><script>lang = testRunner.testCase.testSuite.project.getPropertyValue("lang");
+testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("lang", lang)
+
+actual_words   = [ "by mali.ru", "site feil.com", "calors.net" ]
+//expected_words = [              "mail",          "fail",     "colors" ]
+
+for (i = 0; i &lt; actual_words.size(); ++i) {
+	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("actual_word", actual_words.get(i))
+//	testRunner.testCase.getTestStepByName("TestProperties").setPropertyValue("expected_word", expected_words.get(i) )
+	testRunner.runTestStepByName("checkUrlWords")
+}
+</script></con:config></con:testStep><con:testStep type="request" name="checkUrlWords" id="7116edd2-6ade-434a-935b-3ab57d39ad67" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SpellServiceSoap</con:interface><con:operation>checkText</con:operation><con:request name="checkUrlWords" id="1b66a6a8-36fc-48d3-9fa6-7ff48cb82628"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://speller.yandex.net/services/spellservice</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spel="http://speller.yandex.net/services/spellservice">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <spel:CheckTextRequest options="${#TestCase#options}" format="${#Project#format}" lang="${TestProperties#lang}">
+         <spel:text>${TestProperties#actual_word}</spel:text>
+      </spel:CheckTextRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a2ed1d4d-dbf8-46db-ba24-d39daddd22af"/><con:assertion type="Valid HTTP Status Codes" id="28bee2e1-a9ed-409c-bfc9-e156c7a09ad2" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" id="d97b0f79-dd41-4b17-86a3-e77fe7a7a391" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns1='http://speller.yandex.net/services/spellservice';
+
+//ns1:SpellResult</path><content>&lt;SpellResult xmlns="http://speller.yandex.net/services/spellservice" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"/></content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>lang</con:name><con:value>ru</con:value></con:property><con:property><con:name>options</con:name><con:value>4</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties><con:property><con:name>format</con:name><con:value>html</con:value></con:property><con:property><con:name>lang</con:name><con:value>en</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
